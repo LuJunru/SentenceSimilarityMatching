@@ -4,7 +4,7 @@
 # @Author  : Junru_Lu
 # @Site    : 
 # @File    : CNN_SentenceSimilarity.py
-# @Software: PyCharm 2.7+
+# @Software: PyCharm
 
 
 import jieba
