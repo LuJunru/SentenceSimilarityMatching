@@ -33,7 +33,7 @@ importlib.reload(sys)
 
 # stopwords = set(list(open('basic_files/stopwords.txt', 'r').read().strip().split('\n')))  # 停用词表, 短文本不建议去停用词
 word_vectors = keyedvectors.KeyedVectors.load('Word Embedding/Word60.model')  # 加载预先训练好的词向量
-MAX_LENTH = 20  # 训练时保留的句子最大长度, 必须为4的倍数
+MAX_LENTH = 40  # 训练时保留的最多N-gram数量, 必须为4的倍数
 OUT_SIZE1 = int(MAX_LENTH / 4)  # MAX_LENTH / 4 = 10
 OUT_SIZE2 = int(MAX_LENTH / 2)  # MAX_LENTH / 2 = 20
 CLASS_TYPE = 2
