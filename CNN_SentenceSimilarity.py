@@ -4,7 +4,7 @@
 # @Author  : Junru_Lu
 # @Site    : 
 # @File    : CNN_SentenceSimilarity.py
-# @Software: PyCharm
+# @Software: PyCharm 2.7+
 
 
 import jieba
@@ -18,11 +18,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-stopwords = set(list(open('ChineseSTS-master/stopwords.txt', 'r').read().strip().split('\n')))  # 停用词表
-word_vectors = keyedvectors.KeyedVectors.load('Word Embedding/Word60.model')  # 加载预先训练好的词向量
-MAX_LENTH = 40
-CLASS_TYPE = 2
-GRAM = 4
+stopwords = set(list(open('stopwords.txt', 'r').read().strip().split('\n')))  # 停用词表
+word_vectors = keyedvectors.KeyedVectors.load('')  # 加载预先训练好的词向量
+MAX_LENTH = 40  # 训练时保留的最大句子长度，不够长的在构造feature map时补零
+CLASS_TYPE = 2  # 二分类
+GRAM = 4  # 4-gram
 
 
 def sen_vector_gen(title_words):  # 生成句子的词向量
@@ -153,12 +153,6 @@ with tf.Session() as sess:
     merged = tf.summary.merge_all()
     # python3则为tf.train.SummaryWriter
     writer = tf.summary.FileWriter('logs/', sess.graph)
-    '''
-    运行前删去logs下所有现存日志
-    运行后，在终端输入：tensorboard --logdir='/Users/admin1/PycharmProjects/Tensorflow-Learning/logs/'
-    'Starting TensorBoard 41 on port 6006'这句话出现后，将显示的网址复制到浏览器地址栏
-    *如果没有出现网址，在地址栏输入'localhost:6006'即可
-    '''
     sess.run(init)
 
     s = np.zeros(MAX_LENTH**2 + 2, float)
