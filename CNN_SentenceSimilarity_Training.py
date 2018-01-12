@@ -23,7 +23,7 @@ importlib.reload(sys)
 
 按如下方法查看Tensorboard：
 -运行前删去logs下所有现存日志
--运行后，在终端输入：tensorboard --logdir='/Users/admin1/Desktop/Baifendian/DeepQA/ES/CNN_logs'
+-运行后，在终端输入：tensorboard --logdir='你的日志地址'
 -'Starting TensorBoard 41 on port 6006'这句话出现后，将显示的网址复制到浏览器地址栏
 -*如果没有出现网址，在地址栏输入'localhost:6006'即可
 '''
@@ -32,13 +32,13 @@ importlib.reload(sys)
 # ------------------预加载------------------ #
 
 
-word_vectors = keyedvectors.KeyedVectors.load('Word Embedding/Word60.model')  # 加载预先训练好的词向量
+word_vectors = keyedvectors.KeyedVectors.load('你的词向量地址')  # 加载预先训练好的词向量
 MAX_LENTH = 40  # 训练时保留的最多N-gram数量, 必须为4的倍数
 OUT_SIZE1 = int(MAX_LENTH / 4)  # MAX_LENTH / 4 = 10
 OUT_SIZE2 = int(MAX_LENTH / 2)  # MAX_LENTH / 2 = 20
 CLASS_TYPE = 2
 GRAM = 3  # n-gram
-path = 'CNN_models/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)
+path = 'CNN_models/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)  # 模型存储的地址
 if os.path.exists(path) is False:
     os.makedirs(path)
 
