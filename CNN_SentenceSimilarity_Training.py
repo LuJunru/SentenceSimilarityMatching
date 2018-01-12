@@ -22,8 +22,7 @@ importlib.reload(sys)
 本配置文件用于利用CNN训练相似句子匹配模型
 
 按如下方法查看Tensorboard：
--运行前删去logs下所有现存日志
--运行后，在终端输入：tensorboard --logdir='你的日志地址'
+-模型训练结束后，在终端输入：tensorboard --logdir='本次训练对应的日志地址'
 -'Starting TensorBoard 41 on port 6006'这句话出现后，将显示的网址复制到浏览器地址栏
 -*如果没有出现网址，在地址栏输入'localhost:6006'即可
 '''
