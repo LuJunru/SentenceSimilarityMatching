@@ -38,7 +38,7 @@ OUT_SIZE1 = int(MAX_LENTH / 4)  # MAX_LENTH / 4 = 10
 OUT_SIZE2 = int(MAX_LENTH / 2)  # MAX_LENTH / 2 = 20
 CLASS_TYPE = 2
 GRAM = 3  # n-gram
-path = 'CNN_models/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)  # 模型存储的地址
+path = '你的根目录' + '/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)  # 模型存储的地址
 if os.path.exists(path) is False:
     os.makedirs(path)
 
