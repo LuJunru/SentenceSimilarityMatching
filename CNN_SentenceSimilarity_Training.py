@@ -192,7 +192,7 @@ if __name__ == '__main__':
         sess.run(init)
 
         s = np.zeros(MAX_LENTH ** 2 + 2, float)  # 构建输入特征
-        for line in open('all_qa_data/sen_simi_train.txt', 'r'):
+        for line in open('sen_simi_train.txt', 'r'):
             line_seg = line.strip().split('\t')
             w1 = line_seg[1]
             w2 = line_seg[3]
