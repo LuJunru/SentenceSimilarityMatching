@@ -30,7 +30,7 @@ OUT_SIZE1 = int(MAX_LENTH / 4)  # MAX_LENTH / 4 = 10
 OUT_SIZE2 = int(MAX_LENTH / 2)  # MAX_LENTH / 2 = 20
 CLASS_TYPE = 2
 GRAM = 3  # n-gram
-path = 'CNN_models/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)
+path = '你的根目录' + '/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)
 saverpath = path + '/CNN_' + str(GRAM) + "_" + str(MAX_LENTH) + '.ckpt'  # 预训练的模型地址
 
 
