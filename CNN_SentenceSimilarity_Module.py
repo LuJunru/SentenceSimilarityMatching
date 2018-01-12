@@ -24,14 +24,14 @@ importlib.reload(sys)
 # ------------------预加载------------------ #
 
 
-word_vectors = keyedvectors.KeyedVectors.load('Word Embedding/Word60.model')  # 加载预先训练好的词向量
+word_vectors = keyedvectors.KeyedVectors.load('你的词向量地址')  # 加载预先训练好的词向量
 MAX_LENTH = 40  # 训练时保留的最多N-gram数量, 必须为4的倍数
 OUT_SIZE1 = int(MAX_LENTH / 4)  # MAX_LENTH / 4 = 10
 OUT_SIZE2 = int(MAX_LENTH / 2)  # MAX_LENTH / 2 = 20
 CLASS_TYPE = 2
 GRAM = 3  # n-gram
 path = 'CNN_models/CNN_' + str(GRAM) + "_" + str(MAX_LENTH)
-saverpath = path + '/CNN_' + str(GRAM) + "_" + str(MAX_LENTH) + '.ckpt'
+saverpath = path + '/CNN_' + str(GRAM) + "_" + str(MAX_LENTH) + '.ckpt'  # 预训练的模型地址
 
 
 # ------------------基础函数------------------ #
