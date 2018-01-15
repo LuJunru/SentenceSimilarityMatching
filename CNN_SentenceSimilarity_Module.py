@@ -118,42 +118,44 @@ def max_pool_2x2(x):
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
 
+# CNN网络结构
+keep_prob = tf.placeholder(tf.float32)
+# None表示无论多少行例子都可以
+xs = tf.placeholder(tf.float32, [MAX_LENTH ** 2], 'x_input')
+# -1表示feature map个数,1表示Channel个数
+x_image = tf.reshape(xs, [-1, MAX_LENTH, MAX_LENTH, 1])
+
+# 第一层卷积+pooling
+# 核函数大小patch=2*2;通道数，即特征数为1所以in_size=1;新特征的厚度为OUT_SIZE1
+W_conv1 = weight_variable([5, 5, 1, OUT_SIZE1], 'w1')
+b_conv1 = bias_variable([OUT_SIZE1], 'b1')
+h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+h_pool1 = max_pool_2x2(h_conv1)
+
+# 第二层卷积+pooling
+# 核函数大小patch=2*2;in_size=4;新特征的厚度为OUT_SIZE2
+W_conv2 = weight_variable([5, 5, OUT_SIZE1, OUT_SIZE2], 'w2')
+b_conv2 = bias_variable([OUT_SIZE2], 'b2')
+h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+h_pool2 = max_pool_2x2(h_conv2)
+
+# 第一层全连接层func1 layer
+W_fc1 = weight_variable([OUT_SIZE1 * OUT_SIZE1 * OUT_SIZE2, MAX_LENTH], 'wf1')
+b_fc1 = bias_variable([MAX_LENTH], 'bf1')
+h_pool2_flat = tf.reshape(h_pool2, [-1, OUT_SIZE1 * OUT_SIZE1 * OUT_SIZE2])
+h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+
+# 第二层全连接层func2 layer
+W_fc2 = weight_variable([MAX_LENTH, CLASS_TYPE], 'wf2')
+b_fc2 = bias_variable([CLASS_TYPE], 'bf2')
+prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+
+
 # ------------------主函数------------------ #
 
 
 if __name__ == '__main__':
-
-    keep_prob = tf.placeholder(tf.float32)
-    # None表示无论多少行例子都可以
-    xs = tf.placeholder(tf.float32, [MAX_LENTH ** 2], 'x_input')
-    # -1表示feature map个数,1表示Channel个数
-    x_image = tf.reshape(xs, [-1, MAX_LENTH, MAX_LENTH, 1])
-
-    # 第一层卷积+pooling
-    # 核函数大小patch=2*2;通道数，即特征数为1所以in_size=1;新特征的厚度为OUT_SIZE1
-    W_conv1 = weight_variable([5, 5, 1, OUT_SIZE1], 'w1')
-    b_conv1 = bias_variable([OUT_SIZE1], 'b1')
-    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
-    h_pool1 = max_pool_2x2(h_conv1)
-
-    # 第二层卷积+pooling
-    # 核函数大小patch=2*2;in_size=4;新特征的厚度为OUT_SIZE2
-    W_conv2 = weight_variable([5, 5, OUT_SIZE1, OUT_SIZE2], 'w2')
-    b_conv2 = bias_variable([OUT_SIZE2], 'b2')
-    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
-    h_pool2 = max_pool_2x2(h_conv2)
-
-    # 第一层全连接层func1 layer
-    W_fc1 = weight_variable([OUT_SIZE1 * OUT_SIZE1 * OUT_SIZE2, MAX_LENTH], 'wf1')
-    b_fc1 = bias_variable([MAX_LENTH], 'bf1')
-    h_pool2_flat = tf.reshape(h_pool2, [-1, OUT_SIZE1 * OUT_SIZE1 * OUT_SIZE2])
-    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-    h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
-
-    # 第二层全连接层func2 layer
-    W_fc2 = weight_variable([MAX_LENTH, CLASS_TYPE], 'wf2')
-    b_fc2 = bias_variable([CLASS_TYPE], 'bf2')
-    prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
 
     while True:
 
