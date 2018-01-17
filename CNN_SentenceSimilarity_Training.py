@@ -201,10 +201,10 @@ if __name__ == '__main__':
             line_simi = s1_s2_simipics(w1, w2, MAX_LENTH) + [float(label1)] + [float(label2)]
             s = np.vstack((s, line_simi))
         S = s[1:, :]
+        np.random.shuffle(S)
+        X_train, X_test, Y_train, Y_test = train_test_split(S[:, :-2], S[:, -2:], test_size=0.1)
 
         for i in range(1000):  # 训练
-            np.random.shuffle(S)
-            X_train, X_test, Y_train, Y_test = train_test_split(S[:, :-2], S[:, -2:], test_size=0.1)
             batch_xs, batch_xy = X_train[5 * i:5 * i + 400, :], Y_train[5 * i:5 * i + 400, :]
             sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_xy, keep_prob: 0.8})
             if i % 10 == 0:
